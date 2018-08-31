@@ -28,10 +28,15 @@ class Read_xyz():
     def save_matching_lines(self, save_file_path):
         f_save_matching_lines(self.lines, save_file_path)
 
-    # ②:①のデータから座標を取り出す
+    # ②-1:①のデータから座標を取り出す
     def extract_xyz(self):
         self.data_xyz = f_extract_xzy(self.lines, self.conf)
 
-    # ②のデータを保存する
+    # ②-2:①のデータから座標を取り出す & 重み付け
+    def extract_xyz_with_weight(self, weight_type):
+        self.data_xyz = f_extract_xzy_with_weight(
+            self.lines, self.conf, weight_type)
+
+    # ②-1.2のデータを保存する
     def save_extract_xyz(self, save_file_path):
         f_save_extract_xyz(self.data_xyz, save_file_path)
