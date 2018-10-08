@@ -64,5 +64,5 @@ def f_extract_xzy_with_weight(lines, conf, weight_type):
 
 def f_save_extract_xyz(data_xyz, save_file_path):
     f = open(save_file_path, 'w')
-    np.savetxt(save_file_path, data_xyz.astype(np.float32), delimiter=' ')
+    np.savetxt(save_file_path, data_xyz, fmt='%s', delimiter=' ')
     f.close()
