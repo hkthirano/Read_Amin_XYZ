@@ -1,9 +1,7 @@
 # Read_Amin_XYZ
 
-**BioPythonを使った方がいいかも。。。**
-
-PDBファイルから、アミノ酸主鎖の座標を取り出すライブラリです。  
-オプションで、アミノ酸に重みを付加することができます。
+PDBファイルからアミノ酸主鎖の座標を取り出すライブラリ. 
+オプションでアミノ酸に重みを付加することができる.
 
 **重み**
 + VDWr : ファンデルワールス半径 
@@ -13,13 +11,13 @@ PDBファイルから、アミノ酸主鎖の座標を取り出すライブラ�
 + Engelman : 疎水性指標3
 + MW : 分子量
 
-１つのPDBファイルに複数のモデルが存在している場合は、初めの１つ目のモデルについてのみ参照しています。
+１つのPDBファイルに複数のモデルが存在している場合は, 初めの１つ目のモデルについてのみ参照.
 (ex. 1APS)
 
 # デモ
 
 `python demo_1A6N.py`  
-を実行すると、３つのファイルができます。
+を実行すると３つのファイルができる.
 
 1. 1A6N_line.txt : PDBファイルの（model1の）アミノ酸主鎖の行
 ```
@@ -45,24 +43,24 @@ ATOM     17  CA  SER A   3      -1.434  12.460  20.317  0.70 14.28           C
 
 # 使い方
 
-実行するファイルと同じディレクトリに`Read_XYZ`のディレクトリがあることを想定します。
+実行するファイルと同じディレクトリに`Read_XYZ`のディレクトリがあることを想定.
 
-以下のコードは`demo_1A6N.py`と同じです。  
-使用するサンプルPDBファイルとして、タンパク質番号`1A6N`と`1APS`を用意しています。
+以下のコードは`demo_1A6N.py`と同じ.  
+使用するサンプルPDBファイルとして, タンパク質番号`1A6N`と`1APS`を用意.
 
-まずは、ライブラリを読み込みます。
+まずは, ライブラリを読み込む.
 ```
 from Read_XYZ.main import Read_xyz as r_xyz
 ```
 
-次に、必要となる変数を定義します。
+次に, 必要となる変数を定義.
 
 + 第１変数 : Chain Id
 Chainタイプ (ex. A, B, 1)
 
 + 第2,3変数 : flagment start, flagment end
-取り出すアミノ酸番号の範囲。
-指定しない場合は'NA'にする。
+取り出すアミノ酸番号の範囲.
+指定しない場合は'NA'にする.
 
 ```
 # config = [Chain Id, flagment start, flagment end]
@@ -70,13 +68,13 @@ config = ['A', 'NA', 'NA']
 # config = ['A', '10', '100']
 ```
 
-次に、インスタンスを生成します。
-引数には、先ほどの`config`とPDBファイル(ex. './Data/1APS.pdb')のパスを指定します。
+次に, インスタンスを生成.
+引数には先ほどの`config`とPDBファイル(ex. './Data/1APS.pdb')のパスを指定.
 ```
 demo = r_xyz("./Data/1APS.pdb", config)
 ```
 
-次に、以下の条件に**全て**マッチする行をPDBファイルから取り出します。
+次に, 以下の条件に**全て**マッチする行をPDBファイルから取り出す.
 + ATOM(原子)を含む
 + CA(α炭素)を含む
 + Chain Id にマッチする
@@ -86,33 +84,33 @@ demo = r_xyz("./Data/1APS.pdb", config)
 demo.matching_lines()
 ```
 
-次に、上で取り出した行を保存します。  
-引数には、保存先(ex. './demo_line.txt')を指定します。
+次に, 上で取り出した行を保存.
+引数には保存先(ex. './demo_line.txt')を指定.
 ```
 demo.save_matching_lines('./1A6N_line.txt')
 ```
 
-次に、先ほど取り出した行からXYZ座標の値を取り出します。
+次に, 先ほど取り出した行からXYZ座標の値を取り出す.
 ```
 demo.extract_xyz()
 ```
 
-最後に、上で取り出したXYZ座標の値を保存します。  
-引数には、保存先(ex. './demo_xyz.txt')を指定します。
+最後に, 上で取り出したXYZ座標の値を保存.
+引数には保存先(ex. './demo_xyz.txt')を指定.
 ```
 demo.save_extract_xyz('./1A6N_xyz.txt')
 ```
 
-重みを付けたい場合は、`demo.extract_xyz()`の代わりに、
+重みを付ける場合は, `demo.extract_xyz()`の代わりに
 ```
 demo.extract_xyz_with_weight('VDWr')
 ```
-を使用します。  
-引数には、重みのタイプを指定します。  
+を使用.
+引数には重みのタイプを指定.
 defaultでは、`VDWr`:Van der Waals radius と `IEP`:Isoelectric point
-を用意しています。
+を用意.
 
-保存は、`demo.extract_xyz()`の時と同じです。
+保存は`demo.extract_xyz()`の時と同じ.
 ```
 demo.save_extract_xyz('./1A6N_xyz_VDWr.txt')
 ```
